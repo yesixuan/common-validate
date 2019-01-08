@@ -7,10 +7,13 @@
 [![NPM downloads](http://img.shields.io/npm/dm/jslib-base.svg?style=flat-square)](http://www.npmtrends.com/@ignorance/common-validate)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/yanhaijing/jslib-base.svg)](http://isitmaintained.com/project/yanhaijing/jslib-base "Percentage of issues still open")
 
+> JS 通用的响应式校验工具。适用 nodejs、vue、react、小程序、原生。数据变化自动触发校验
+
+
 ## Usage
 
 ```js
-import Validator from '@ignorance/common-validate'
+import Validator from '@ignorance/validator'
 
 // 待校验数据
 const formData = {
@@ -44,7 +47,7 @@ const ruleConfig = {
 
 const validator = new Validator(formData, ruleConfig)
 // 单个字段校验是否通过
-validator('age') // true | false
+validator.isError('age') // true | false
 // 单个字段校验 (不传要校验的字段则默认校验全部)
 validator.verify('age')
 // 整体校验
@@ -54,7 +57,7 @@ validator.verify()
 ## 扩展默认规则
 
 ```js
-import Validator, { rules } from '@ignorance/common-validate'
+import Validator, { rules } from '@ignorance/validator'
 
 rules.extendRegexp({
   onlyNumber: /^\d+$/,
