@@ -1,6 +1,6 @@
 {
   "name": "@ignorance/validator",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "JS 通用数据校验",
   "main": "dist/index.js",
   "jsnext:main": "dist/index.esm.js",

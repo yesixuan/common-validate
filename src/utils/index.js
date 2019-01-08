@@ -38,6 +38,11 @@ export const defineReactive = (obj, key, listener) => {
   })
 }
 
+/**
+ * 将形如："min:5""max:8""min:5 max:8" 的字符串解析成校验字符串长度的校验函数
+ * @param rule: string
+ * @returns {function({length: number}): boolean}
+ */
 export const createLengthValidate = rule => {
   const reg = /^(m(ax|in):(\d+))(\sm(ax|in):(\d+)){0,1}$/
   const [ , , p2, p3, p4, p5, p6 ] = rule.match(reg)
@@ -50,6 +55,11 @@ export const createLengthValidate = rule => {
   return ({length}) => !((min && ~~min > length) || (max && ~~max < length))
 }
 
+/**
+ * 验证 validator 的值类型，将其统一包装成函数
+ * @param validator
+ * @returns Function
+ */
 export const createValidator = validator => {
   if (typeof validator === 'string') {
     if (defaultRules.rules[validator]) {
@@ -85,5 +95,5 @@ export const verifySingle = (name, value, rules) => {
 }
 
 export const verifyAll = (data, ruleConfig) => {
-  return Object.keys(data).reduce((res, name) => (res[name] = verifySingle(name, data[name], ruleConfig[name])) && res, {})
+  return Object.keys(ruleConfig).reduce((res, name) => (res[name] = verifySingle(name, data[name], ruleConfig[name])) && res, {})
 }

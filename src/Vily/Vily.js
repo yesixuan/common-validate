@@ -3,7 +3,7 @@ import {
   defineReactive,
   verifySingle,
   verifyAll
-} from '../utils/index'
+} from '../utils'
 
 export default class Vily {
   constructor(data, ruleConfig, reactive = true) {
@@ -18,13 +18,15 @@ export default class Vily {
    * 初始化校验结果
    */
   initVRes() {
-    this.vRes = Object.keys(this.data).reduce((result, key) => (result[key] = {
+    this.vRes = Object.keys(this.ruleConfig).reduce((result, key) => ({
+      ...result,
+      [key]: {
       name: key,
       dirty: false,
       valid: true,
       msg: '',
       validator: ''
-    }) && result, {})
+    }}), {})
     return this.vRes
   }
 
