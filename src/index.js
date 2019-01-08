@@ -6,7 +6,7 @@ import {
   createValidator,
   createLengthValidate,
   verifyAll
-} from './utils'
+} from './utils/index'
 
 export default Vily
 

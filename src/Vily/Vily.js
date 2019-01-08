@@ -3,7 +3,7 @@ import {
   defineReactive,
   verifySingle,
   verifyAll
-} from '../utils'
+} from '../utils/index'
 
 export default class Vily {
   constructor(data, ruleConfig, reactive = true) {
