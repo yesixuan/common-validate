@@ -54,14 +54,14 @@ validator.verify()
 ## 扩展默认规则
 
 ```js
-import Validator, { extendRegexp, extendValidator } from '@ignorance/common-validate'
+import Validator, { rules } from '@ignorance/common-validate'
 
-extendRegexp({
+rules.extendRegexp({
   onlyNumber: /^\d+$/,
   // ...
 })
 
-extendRegexp({
+rules.extendValidator({
   lessThanTen: val => {
     val = +val
     return val < 10
