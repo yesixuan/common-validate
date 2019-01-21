@@ -86,12 +86,12 @@ export const verifySingle = (name, value, rules) => {
   for (let i = 0; i < rules.length; i++) {
     const { msg, validator } = rules[i]
     if (value === '' && !required) {
-      return { name, valid: true, msg: '', validator }
+      return { name, valid: true, msg: '', validator, dirty: true }
     } else if (!createValidator(validator)(value)) {
-      return { name, valid: false, msg: msg || '默认校验不通过消息', validator }
+      return { name, valid: false, msg: msg || '默认校验不通过消息', validator, dirty: true }
     }
   }
-  return { name, valid: true, msg: '' }
+  return { name, valid: true, msg: '', dirty: true }
 }
 
 export const verifyAll = (data, ruleConfig) => {

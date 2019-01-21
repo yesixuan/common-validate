@@ -50,6 +50,8 @@ export default class Vily {
   verify(name) {
     // 没有传入要校验的字段则校验整个表单
     if (!name) return this.verifyAll()
+    const res = verifySingle(name, this.data[name], this.ruleConfig[name])
+    Object.assign(this.vRes, { [name]: res })
     const target = this.vRes[name]
     if (!target) return null
     return target
@@ -58,7 +60,7 @@ export default class Vily {
   isError(name) {
     const verifyResult = this.verify(name)
     // 如果值没有脏，直接返回校验通过
-    if (!(verifyResult || {}).dirty) return true
+    if (!(verifyResult || {}).dirty) return false
     return verifyResult.valid
   }
 
