@@ -65,7 +65,7 @@ export const createValidator = validator => {
     if (defaultRules.rules[validator]) {
       return defaultRules.rules[validator]
     } else if (validator === 'required') {
-      return val => !!val
+      return val => val != null && val !== ''
     } else if (/^(m(ax|in):(\d+))(\sm(ax|in):(\d+)){0,1}$/.test(validator)) {
       return createLengthValidate(validator)
     } else {
