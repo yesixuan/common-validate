@@ -40,7 +40,7 @@ export default class Vily {
           if (!prevRes.dirty && !this.data[key]) {
             dirty = false
           }
-          const verifyResult = verifySingle(key, this.data[key], this.ruleConfig[key])
+          const verifyResult = verifySingle(key, this.data[key], this.ruleConfig[key], this.data)
           this.vRes[key] = { ...prevRes, ...verifyResult, dirty }
         }))
       }
@@ -50,7 +50,7 @@ export default class Vily {
   verify(name) {
     // 没有传入要校验的字段则校验整个表单
     if (!name) return this.verifyAll()
-    const res = verifySingle(name, this.data[name], this.ruleConfig[name])
+    const res = verifySingle(name, this.data[name], this.ruleConfig[name], this.data)
     Object.assign(this.vRes, { [name]: res })
     const target = this.vRes[name]
     if (!target) return null

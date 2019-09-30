@@ -80,14 +80,14 @@ export const createValidator = validator => {
   }
 }
 
-export const verifySingle = (name, value, rules) => {
+export const verifySingle = (name, value, rules, AllData) => {
   Array.isArray(rules) ? rules = [ ...rules ] : [ rules ]
   const required = rules.some(rule => rule.validator === 'required')
   for (let i = 0; i < rules.length; i++) {
     const { msg, validator } = rules[i]
     if (value === '' && !required) {
       return { name, valid: true, msg: '', validator, dirty: true }
-    } else if (!createValidator(validator)(value)) {
+    } else if (!createValidator(validator)(value, AllData)) { // 注入第二个参数
       return { name, valid: false, msg: msg || '默认校验不通过消息', validator, dirty: true }
     }
   }
@@ -95,5 +95,5 @@ export const verifySingle = (name, value, rules) => {
 }
 
 export const verifyAll = (data, ruleConfig) => {
-  return Object.keys(ruleConfig).reduce((res, name) => (res[name] = verifySingle(name, data[name], ruleConfig[name])) && res, {})
+  return Object.keys(ruleConfig).reduce((res, name) => (res[name] = verifySingle(name, data[name], ruleConfig[name], data)) && res, {})
 }
